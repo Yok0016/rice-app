@@ -15,26 +15,50 @@
     *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
     html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Sarabun','Noto Sans Thai',sans-serif;color:var(--text)}
     .screen{display:none;flex-direction:column;height:100%}.screen.active{display:flex}
+
+    /* TOP BAR */
     .top-bar{background:var(--card);border-bottom:0.5px solid var(--border);padding:14px 18px 10px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
     .top-bar h1{font-size:17px;font-weight:600}
     .logo-tap{font-size:26px;cursor:pointer;user-select:none}
     .time-now{font-size:12px;color:var(--text2)}
     .scroll-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+
+    /* CARD */
     .card{background:var(--card);border-radius:var(--radius);border:0.5px solid var(--border);padding:14px 16px}
     .sec-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+
+    /* STATUS */
     .status-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:99px;font-size:12px;font-weight:500}
     .pill-open{background:var(--green-light);color:var(--green-text)}.pill-closed{background:var(--red-light);color:var(--red-text)}
     .dot{width:7px;height:7px;border-radius:50%}.dot-open{background:var(--green)}.dot-closed{background:var(--red)}
-    .form-group{display:flex;flex-direction:column;gap:8px}
-    .form-row{display:flex;gap:8px;align-items:center}
-    input[type=text],input[type=number],input[type=time],input[type=password]{height:44px;border-radius:var(--radius-sm);border:0.5px solid var(--border);padding:0 13px;font-size:15px;background:var(--bg);color:var(--text);font-family:inherit;width:100%;outline:none}
-    input[type=text]:focus,input[type=number]:focus,input[type=time]:focus,input[type=password]:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(29,158,117,0.15)}
-    input[type=number]{width:90px;text-align:center}
-    .label-text{font-size:13px;color:var(--text2);white-space:nowrap}
+    .sdot{width:8px;height:8px;border-radius:50%;background:var(--text3);display:inline-block;margin-right:4px;transition:background .3s}
+    .sdot.ok{background:var(--green)}.sdot.err{background:var(--red)}
+
+    /* BUTTONS */
     .btn{height:44px;padding:0 18px;border-radius:var(--radius-sm);border:0.5px solid var(--border);background:var(--card);font-size:15px;font-family:inherit;cursor:pointer;color:var(--text);white-space:nowrap;font-weight:500;transition:all .15s}
-    .btn:active{transform:scale(0.97)}.btn-green{background:var(--green);border-color:var(--green);color:#fff}
-    .btn-green:disabled{background:#9FE1CB;border-color:#9FE1CB;cursor:not-allowed}
+    .btn:active{transform:scale(0.97)}
+    .btn-green{background:var(--green);border-color:var(--green);color:#fff}
+    .btn-green:disabled{background:#9FE1CB;border-color:#9FE1CB;cursor:not-allowed;transform:none}
     .btn-red{border-color:var(--red);color:var(--red)}.btn-full{width:100%}
+
+    /* NAME PICKER */
+    .name-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
+    .name-btn{height:46px;border-radius:var(--radius-sm);border:0.5px solid var(--border);background:var(--bg);font-size:14px;font-family:inherit;cursor:pointer;color:var(--text);font-weight:500;transition:all .15s;padding:0 4px}
+    .name-btn:active{transform:scale(0.96)}
+    .name-btn.selected{background:var(--green);border-color:var(--green);color:#fff}
+    .name-btn.submitted{background:var(--green-light);border-color:var(--green);color:var(--green-text);cursor:not-allowed;opacity:0.7}
+
+    /* HUNGER BUTTONS */
+    .hunger-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+    .hunger-btn{height:52px;border-radius:var(--radius-sm);border:0.5px solid var(--border);background:var(--bg);font-size:12px;font-family:inherit;cursor:pointer;color:var(--text2);font-weight:500;transition:all .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px}
+    .hunger-btn .hval{font-size:16px;font-weight:700;color:var(--text)}
+    .hunger-btn:active{transform:scale(0.96)}
+    .hunger-btn.sel-low{background:#E1F5EE;border-color:#1D9E75;color:#085041}.hunger-btn.sel-low .hval{color:#085041}
+    .hunger-btn.sel-med{background:#E6F1FB;border-color:#0C447C;color:#0C447C}.hunger-btn.sel-med .hval{color:#0C447C}
+    .hunger-btn.sel-high{background:#FAEEDA;border-color:#BA7517;color:#412402}.hunger-btn.sel-high .hval{color:#412402}
+    .hunger-btn.sel-xtra{background:#FCEBEB;border-color:#E24B4A;color:#501313}.hunger-btn.sel-xtra .hval{color:#501313}
+
+    /* METRICS */
     .metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}
     .metric{background:var(--bg);border-radius:var(--radius-sm);padding:11px 13px}
     .metric .ml{font-size:12px;color:var(--text2);margin-bottom:3px}
@@ -42,6 +66,8 @@
     .rice-row{display:flex;flex-wrap:wrap;gap:4px;padding:10px 0 4px}
     .ri{font-size:28px;line-height:1}.ri-half{font-size:28px;line-height:1;opacity:.38}
     .note-text{font-size:12px;color:var(--text3)}
+
+    /* PERSON LIST */
     .person-list{display:flex;flex-direction:column;gap:7px}
     .person-row{display:flex;align-items:center;gap:9px;padding:9px 11px;background:var(--bg);border-radius:var(--radius-sm)}
     .avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
@@ -52,12 +78,21 @@
     .del-btn:active{color:var(--red);background:var(--red-light)}
     .empty-state{text-align:center;padding:24px 0;color:var(--text3);font-size:14px}
     .empty-state .ei{font-size:30px;display:block;margin-bottom:8px}
+
+    /* BOXES */
     .warn-box{background:var(--amber-light);border-radius:var(--radius-sm);padding:9px 12px;font-size:13px;color:var(--amber-text);display:flex;gap:8px;align-items:center;margin-bottom:8px}
+    .done-box{background:var(--green-light);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;color:var(--green-text);text-align:center;font-weight:500}
     .info-box{background:var(--green-light);border-radius:var(--radius-sm);padding:9px 12px;font-size:13px;color:var(--green-text);display:flex;gap:8px;align-items:center;margin-top:8px}
     .list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
     .last-reset{font-size:11px;color:var(--text3)}
-    .sdot{width:8px;height:8px;border-radius:50%;background:var(--text3);display:inline-block;margin-right:4px;transition:background .3s}
-    .sdot.ok{background:var(--green)}.sdot.err{background:var(--red)}
+
+    /* INPUT */
+    input[type=text],input[type=time],input[type=password]{height:44px;border-radius:var(--radius-sm);border:0.5px solid var(--border);padding:0 13px;font-size:15px;background:var(--bg);color:var(--text);font-family:inherit;width:100%;outline:none}
+    input[type=text]:focus,input[type=time]:focus,input[type=password]:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(29,158,117,0.15)}
+    .form-row{display:flex;gap:8px;align-items:center}
+    .label-text{font-size:13px;color:var(--text2);white-space:nowrap}
+
+    /* TOGGLE */
     .toggle-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
     .toggle-label{font-size:15px;font-weight:500}
     .toggle{position:relative;width:46px;height:26px;flex-shrink:0}
@@ -65,6 +100,8 @@
     .tslider{position:absolute;cursor:pointer;inset:0;background:var(--border);border-radius:26px;transition:.2s}
     .tslider:before{content:"";position:absolute;width:20px;height:20px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
     input:checked+.tslider{background:var(--green)}input:checked+.tslider:before{transform:translateX(20px)}
+
+    /* PIN */
     .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:100;align-items:flex-end;justify-content:center}
     .overlay.show{display:flex}
     .pin-sheet{background:var(--card);border-radius:var(--radius) var(--radius) 0 0;padding:24px 20px 36px;width:100%;max-width:480px}
@@ -78,12 +115,33 @@
     .pin-key:active{background:var(--green-light);color:var(--green-text);transform:scale(0.96)}
     .pin-cancel{font-size:14px;font-weight:400;color:var(--text2)}.pin-del{font-size:22px}
     .pin-error-msg{text-align:center;font-size:13px;color:var(--red);margin-top:10px;min-height:18px}
+
+    /* ADMIN */
     .admin-bar{background:var(--green);padding:14px 18px 10px;display:flex;align-items:center;gap:12px}
     .admin-bar h1{font-size:17px;font-weight:600;color:#fff;flex:1}
     .admin-back{background:transparent;border:none;color:rgba(255,255,255,.9);font-size:24px;cursor:pointer;padding:0;line-height:1}
     .admin-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
     .change-pin-row{display:flex;gap:8px;align-items:center}
-    .divider{border:none;border-top:0.5px solid var(--border);margin:4px 0}
+    .divider{border:none;border-top:0.5px solid var(--border);margin:8px 0}
+
+    /* ADMIN NAME LIST */
+    .name-manage-list{display:flex;flex-direction:column;gap:6px}
+    .name-manage-row{display:flex;align-items:center;gap:8px}
+    .name-manage-row input{flex:1;height:38px;font-size:14px}
+    .nm-del{width:38px;height:38px;border-radius:var(--radius-sm);border:0.5px solid var(--red);background:transparent;color:var(--red);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .nm-del:active{background:var(--red-light)}
+    .add-name-row{display:flex;gap:8px;margin-top:8px}
+    .add-name-row input{flex:1;height:38px;font-size:14px}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a1a18;color:#fff;padding:10px 20px;border-radius:99px;font-size:14px;opacity:0;transition:all .3s;z-index:200;white-space:nowrap;pointer-events:none}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* CLOSE BANNER */
+    .close-banner{background:var(--red-light);border-radius:var(--radius);padding:16px;text-align:center}
+    .close-banner .cb-icon{font-size:36px;margin-bottom:8px}
+    .close-banner .cb-title{font-size:16px;font-weight:600;color:var(--red-text);margin-bottom:4px}
+    .close-banner .cb-sub{font-size:13px;color:var(--red-text);opacity:.8}
   </style>
 </head>
 <body>
@@ -96,26 +154,55 @@
     <span class="time-now" id="nowTime">--:--:--</span>
   </div>
   <div class="scroll-body">
+
+    <!-- สถานะ -->
     <div class="card" style="display:flex;align-items:center;gap:10px;padding:12px 16px">
       <span id="statusPill" class="status-pill pill-open"><span class="dot dot-open"></span>รับลงชื่ออยู่</span>
       <span style="flex:1"></span>
       <span style="font-size:12px;color:var(--text2)"><span class="sdot" id="sdot"></span><span id="stxt">กำลังเชื่อมต่อ...</span></span>
     </div>
 
-    <div class="card">
-      <div class="sec-label">ลงชื่อผู้รับสวัสดิการ</div>
+    <!-- ปิดรับ banner -->
+    <div id="closeBanner" style="display:none" class="close-banner">
+      <div class="cb-icon">🔒</div>
+      <div class="cb-title">ปิดรับลงชื่อแล้ว</div>
+      <div class="cb-sub" id="closeBannerSub">ขอบคุณทุกท่านที่ลงชื่อ</div>
+    </div>
+
+    <!-- ฟอร์ม -->
+    <div class="card" id="formCard">
+      <div class="sec-label">เลือกชื่อของคุณ</div>
       <div id="warnClosed" class="warn-box" style="display:none">⏰ ขณะนี้ปิดรับลงชื่อแล้ว</div>
-      <div class="form-group">
-        <input type="text" id="nameInput" placeholder="กรอกชื่อ..." maxlength="20" autocomplete="off">
-        <div class="form-row">
-          <span class="label-text">ความต้องการ</span>
-          <input type="number" id="ptsInput" min="0.5" step="0.5" value="1">
-          <span class="label-text">แต้ม</span>
-          <button class="btn btn-green" id="submitBtn" onclick="addPerson()" style="margin-left:auto">ส่ง ✓</button>
+      <div id="alreadyDone" class="done-box" style="display:none">✅ คุณได้ลงชื่อแล้ววันนี้<br><span style="font-size:12px;font-weight:400;opacity:.8">รีเซ็ตใหม่หลัง 14:00 น.</span></div>
+
+      <div id="submitForm">
+        <div class="name-grid" id="nameGrid">
+          <div style="grid-column:1/-1;text-align:center;color:var(--text3);font-size:13px;padding:16px 0">กำลังโหลดรายชื่อ...</div>
         </div>
+
+        <div style="margin-top:12px">
+          <div class="sec-label">ปริมาณที่ต้องการ</div>
+          <div class="hunger-grid">
+            <button class="hunger-btn" id="hb0" onclick="selectHunger(0)">
+              <span class="hval">0.5</span><span>น้อย</span>
+            </button>
+            <button class="hunger-btn" id="hb1" onclick="selectHunger(1)">
+              <span class="hval">1</span><span>ปกติ</span>
+            </button>
+            <button class="hunger-btn" id="hb2" onclick="selectHunger(2)">
+              <span class="hval">1.5</span><span>เพิ่มข้าว</span>
+            </button>
+            <button class="hunger-btn" id="hb3" onclick="selectHunger(3)">
+              <span class="hval">2</span><span>พิเศษ</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn btn-green btn-full" id="submitBtn" onclick="addPerson()" style="margin-top:12px" disabled>เลือกชื่อและปริมาณก่อน</button>
       </div>
     </div>
 
+    <!-- สรุป -->
     <div class="card">
       <div class="sec-label">สรุปข้าวที่ต้องหุง</div>
       <div class="metrics">
@@ -126,6 +213,7 @@
       <div class="note-text">🍚 1 ไอคอน = 6 แต้ม = 1 ถ้วยข้าว</div>
     </div>
 
+    <!-- รายชื่อ -->
     <div class="card">
       <div class="list-header">
         <div class="sec-label" style="margin:0">รายชื่อผู้ส่ง (<span id="countLabel">0</span> คน)</div>
@@ -147,6 +235,7 @@
   </div>
   <div class="admin-body">
 
+    <!-- ตั้งเวลา -->
     <div class="card">
       <div class="toggle-row">
         <span class="toggle-label">ตั้งเวลารับลงชื่อ</span>
@@ -162,6 +251,7 @@
       </div>
     </div>
 
+    <!-- รีเซ็ต -->
     <div class="card">
       <div class="toggle-row">
         <span class="toggle-label">รีเซ็ตรายชื่ออัตโนมัติ</span>
@@ -174,17 +264,29 @@
         </div>
         <div class="info-box" id="resetInfo">⏱ รีเซ็ตครั้งถัดไป: —</div>
       </div>
-      <div class="divider" style="margin:12px 0"></div>
+      <div class="divider"></div>
       <button class="btn btn-red btn-full" onclick="confirmReset()">🗑 ล้างรายชื่อทันที</button>
     </div>
 
+    <!-- จัดการชื่อ -->
     <div class="card">
-      <div class="sec-label">จัดการรายชื่อ (ลบได้)</div>
+      <div class="sec-label">จัดการรายชื่อสมาชิก</div>
+      <div class="name-manage-list" id="nameMgmtList"></div>
+      <div class="add-name-row">
+        <input type="text" id="newNameInput" placeholder="เพิ่มชื่อใหม่..." maxlength="20">
+        <button class="btn btn-green" onclick="addName()" style="height:38px;padding:0 14px">+ เพิ่ม</button>
+      </div>
+    </div>
+
+    <!-- จัดการผู้ส่งวันนี้ -->
+    <div class="card">
+      <div class="sec-label">รายชื่อผู้ส่งวันนี้ (ลบได้)</div>
       <div class="person-list" id="adminPersonList">
         <div class="empty-state"><span class="ei">👤</span>ยังไม่มีผู้ลงทะเบียน</div>
       </div>
     </div>
 
+    <!-- เปลี่ยน PIN -->
     <div class="card">
       <div class="sec-label">เปลี่ยน PIN แอดมิน</div>
       <div class="change-pin-row">
@@ -225,32 +327,79 @@
   </div>
 </div>
 
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
 <script>
 const FB='https://test001-278c6-default-rtdb.asia-southeast1.firebasedatabase.app';
 const BG=['#EEEDFE','#E1F5EE','#FAEEDA','#E6F1FB','#FAECE7','#FBEAF0','#EAF3DE'];
 const TC=['#3C3489','#085041','#412402','#0C447C','#712B13','#72243E','#27500A'];
-let people=[],lastResetStr=null,lastCheckedMin=-1,defaultPin='1234',ci=0,fbES=null;
+const HUNGER=[
+  {label:'น้อย',val:0.5,cls:'sel-low'},
+  {label:'ปกติ',val:1,cls:'sel-med'},
+  {label:'เพิ่มข้าว',val:1.5,cls:'sel-high'},
+  {label:'พิเศษ',val:2,cls:'sel-xtra'}
+];
+
+let people=[],memberNames=[],lastResetStr=null,lastCheckedMin=-1,defaultPin='1234',ci=0,fbES=null;
+let selectedName=null,selectedHunger=null;
+let wasOpen=null; // track state change for notification
+
+// ===== TOAST =====
+function showToast(msg,dur=2500){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),dur);
+}
+
+// ===== SUBMITTED CHECK (per device, resets after resetTime) =====
+function getSubmittedKey(){
+  const[rh,rm]=document.getElementById('resetTime').value.split(':').map(Number);
+  const now=new Date();
+  const nm=now.getHours()*60+now.getMinutes();
+  const resetM=rh*60+rm;
+  // "day slot" changes at resetTime
+  const d=new Date(now);
+  if(nm<resetM)d.setDate(d.getDate()-1);
+  return 'submitted_'+d.toDateString();
+}
+function hasSubmitted(){
+  try{return !!localStorage.getItem(getSubmittedKey());}catch(e){return false;}
+}
+function markSubmitted(){
+  try{
+    // clear old keys
+    Object.keys(localStorage).filter(k=>k.startsWith('submitted_')).forEach(k=>localStorage.removeItem(k));
+    localStorage.setItem(getSubmittedKey(),'1');
+  }catch(e){}
+}
+function clearSubmitted(){
+  try{Object.keys(localStorage).filter(k=>k.startsWith('submitted_')).forEach(k=>localStorage.removeItem(k));}catch(e){}
+}
 
 // ===== FIREBASE =====
 async function fbPatch(path,data){
   try{await fetch(`${FB}${path}.json`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});}catch(e){}
 }
+async function fbSet(path,data){
+  try{await fetch(`${FB}${path}.json`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});}catch(e){}
+}
 
 function startStream(){
   if(fbES)return;
   fbES=new EventSource(`${FB}/rice.json`);
-  fbES.addEventListener('put',e=>{handleFbEvent(e,'put');});
-  fbES.addEventListener('patch',e=>{handleFbEvent(e,'patch');});
+  fbES.addEventListener('put',e=>handleFb(e,'put'));
+  fbES.addEventListener('patch',e=>handleFb(e,'patch'));
   fbES.onerror=()=>{setSyncErr();setTimeout(()=>{fbES.close();fbES=null;setTimeout(startStream,3000);},1000);};
 }
 
-function handleFbEvent(e,type){
+function handleFb(e,type){
   try{
-    const d=JSON.parse(e.data);
-    const data=d.data;
+    const d=JSON.parse(e.data),data=d.data;
     if(!data&&type==='put'){people=[];renderAll();setSyncOk();return;}
     if(!data)return;
     if(data.people!==undefined)people=Object.values(data.people||{});
+    if(data.memberNames!==undefined)memberNames=data.memberNames||[];
     if(data.lastReset!==undefined)lastResetStr=data.lastReset;
     if(data.settings){
       const s=data.settings;
@@ -262,7 +411,9 @@ function handleFbEvent(e,type){
       document.getElementById('enableReset').checked=!!s.enableReset;
       saveLocal();
     }
-    setSyncOk();renderAll();
+    setSyncOk();
+    checkCloseNotify();
+    renderAll();
   }catch(err){}
 }
 
@@ -270,11 +421,12 @@ function setSyncOk(){document.getElementById('sdot').className='sdot ok';documen
 function setSyncErr(){document.getElementById('sdot').className='sdot err';document.getElementById('stxt').textContent='ออฟไลน์';}
 
 async function pushPeople(){
-  // store as object keyed by id for Firebase
   const obj={};people.forEach(p=>{obj[p.id]=p;});
   await fbPatch('/rice',{people:obj,lastReset:lastResetStr});
 }
-
+async function pushNames(){
+  await fbPatch('/rice',{memberNames});
+}
 async function pushSettings(){
   saveLocal();renderAll();
   await fbPatch('/rice',{settings:{
@@ -287,7 +439,7 @@ async function pushSettings(){
   }});
 }
 
-// ===== LOCAL SETTINGS (fallback) =====
+// ===== LOCAL =====
 function saveLocal(){
   try{localStorage.setItem('rs',JSON.stringify({
     pin:defaultPin,
@@ -324,6 +476,19 @@ function minsUntilReset(){
   let d=rh*60+rm-nm;if(d<=0)d+=1440;return d;
 }
 function fmtCD(m){return m>=60?`อีก ${Math.floor(m/60)} ชม. ${m%60} น.`:`อีก ${m} น.`}
+
+function checkCloseNotify(){
+  const open=isOpen();
+  if(wasOpen===true&&open===false){
+    // just closed
+    showToast('🔒 ปิดรับลงชื่อแล้ว',4000);
+    if('Notification' in window&&Notification.permission==='granted'){
+      new Notification('สวัสดิการข้าว',{body:'ปิดรับลงชื่อแล้ว',icon:'icons/icon-192.png'});
+    }
+  }
+  wasOpen=open;
+}
+
 function checkAutoReset(){
   if(!document.getElementById('enableReset').checked)return;
   const now=new Date(),cur=now.getHours()*60+now.getMinutes();
@@ -331,60 +496,167 @@ function checkAutoReset(){
   if(cur===rh*60+rm&&lastCheckedMin!==cur){lastCheckedMin=cur;doReset();}
 }
 async function doReset(){
-  people=[];
+  people=[];selectedName=null;selectedHunger=null;
   const now=new Date();
   lastResetStr=now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
+  // don't clear submitted here — key will auto-rotate at reset time
   await pushPeople();renderAll();
+  showToast('🔄 รีเซ็ตรายชื่อแล้ว');
 }
-function confirmReset(){if(confirm('ยืนยันล้างรายชื่อทั้งหมด?'))doReset();}
+function confirmReset(){
+  if(confirm('ยืนยันล้างรายชื่อทั้งหมด?')){clearSubmitted();doReset();}
+}
 
-// ===== PERSON =====
-function initials(n){return n.slice(0,2).toUpperCase()}
-async function addPerson(){
-  if(!isOpen())return;
-  const n=document.getElementById('nameInput').value.trim();
-  const p=parseFloat(document.getElementById('ptsInput').value)||1;
-  if(!n){document.getElementById('nameInput').focus();return;}
-  const now=new Date(),ts=now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
-  people.push({id:Date.now(),name:n,pts:Math.max(0.5,Math.round(p*10)/10),bg:BG[ci%BG.length],tc:TC[ci%TC.length],ts});
-  ci++;
-  document.getElementById('nameInput').value='';
-  document.getElementById('ptsInput').value='1';
-  document.getElementById('nameInput').focus();
-  await pushPeople();renderAll();
+// ===== HUNGER SELECT =====
+function selectHunger(idx){
+  selectedHunger=idx;
+  for(let i=0;i<4;i++){
+    const b=document.getElementById('hb'+i);
+    b.className='hunger-btn'+(i===idx?' '+HUNGER[i].cls:'');
+  }
+  updateSubmitBtn();
 }
+
+// ===== NAME SELECT =====
+function selectName(name){
+  selectedName=name;
+  renderNameGrid();
+  updateSubmitBtn();
+}
+
+function updateSubmitBtn(){
+  const btn=document.getElementById('submitBtn');
+  const open=isOpen();
+  const done=hasSubmitted();
+  if(!open){btn.disabled=true;btn.textContent='ปิดรับลงชื่อแล้ว';return;}
+  if(done){btn.disabled=true;btn.textContent='ลงชื่อแล้ววันนี้';return;}
+  if(!selectedName&&selectedHunger===null){btn.disabled=true;btn.textContent='เลือกชื่อและปริมาณก่อน';return;}
+  if(!selectedName){btn.disabled=true;btn.textContent='เลือกชื่อก่อน';return;}
+  if(selectedHunger===null){btn.disabled=true;btn.textContent='เลือกปริมาณก่อน';return;}
+  btn.disabled=false;btn.textContent='✓ ยืนยันการลงชื่อ';
+}
+
+// ===== ADD PERSON =====
+async function addPerson(){
+  if(!isOpen()||hasSubmitted())return;
+  if(!selectedName||selectedHunger===null)return;
+  const h=HUNGER[selectedHunger];
+  const now=new Date(),ts=now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
+  const n=selectedName;
+  people.push({id:Date.now(),name:n,pts:h.val,label:h.label,bg:BG[ci%BG.length],tc:TC[ci%TC.length],ts});
+  ci++;
+  markSubmitted();
+  selectedName=null;selectedHunger=null;
+  await pushPeople();
+  renderAll();
+  showToast('✅ ลงชื่อสำเร็จ! '+n+' ('+h.label+')');
+}
+
 async function removePerson(id){
   people=people.filter(x=>x.id!==id);
   await pushPeople();renderAll();
 }
 
+// ===== ADMIN NAME MANAGEMENT =====
+async function addName(){
+  const inp=document.getElementById('newNameInput');
+  const n=inp.value.trim();
+  if(!n)return;
+  if(memberNames.includes(n)){showToast('มีชื่อนี้แล้ว');return;}
+  memberNames.push(n);inp.value='';
+  await pushNames();renderAll();
+}
+async function removeName(idx){
+  memberNames.splice(idx,1);
+  await pushNames();renderAll();
+}
+async function updateName(idx,val){
+  memberNames[idx]=val;
+  await pushNames();
+}
+
 // ===== RENDER =====
+function renderNameGrid(){
+  const grid=document.getElementById('nameGrid');
+  const submitted=hasSubmitted();
+  const submittedNames=people.map(p=>p.name);
+  if(!memberNames.length){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;color:var(--text3);font-size:13px;padding:16px 0">ยังไม่มีรายชื่อ<br>แอดมินเพิ่มได้ในหน้าตั้งค่า</div>';
+    return;
+  }
+  grid.innerHTML=memberNames.map(name=>{
+    const isSel=name===selectedName;
+    const isSubmitted=submittedNames.includes(name);
+    let cls='name-btn';
+    if(isSel)cls+=' selected';
+    else if(isSubmitted)cls+=' submitted';
+    const disabled=isSubmitted||submitted?'disabled':'';
+    return `<button class="${cls}" onclick="selectName('${name}')" ${disabled}>${name}${isSubmitted?' ✓':''}</button>`;
+  }).join('');
+}
+
+function renderAdminNameMgmt(){
+  const list=document.getElementById('nameMgmtList');
+  if(!memberNames.length){list.innerHTML='<div style="font-size:13px;color:var(--text3);padding:8px 0">ยังไม่มีรายชื่อ</div>';return;}
+  list.innerHTML=memberNames.map((name,i)=>`
+    <div class="name-manage-row">
+      <input type="text" value="${name}" onblur="updateName(${i},this.value)" style="flex:1;height:38px;font-size:14px">
+      <button class="nm-del" onclick="removeName(${i})">✕</button>
+    </div>`).join('');
+}
+
+function initials(n){return n.slice(0,2).toUpperCase()}
+
 function renderAll(){
   const now=new Date();
   document.getElementById('nowTime').textContent=now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+
   const open=isOpen();
+  const done=hasSubmitted();
+
+  // status pill
   const sp=document.getElementById('statusPill');
   sp.className='status-pill '+(open?'pill-open':'pill-closed');
   sp.innerHTML='<span class="dot '+(open?'dot-open':'dot-closed')+'"></span>'+(open?'รับลงชื่ออยู่':'ปิดรับลงชื่อแล้ว');
+
+  // close banner
+  document.getElementById('closeBanner').style.display=open?'none':'block';
+  if(!open){
+    const[oh,om]=document.getElementById('timeOpen').value.split(':').map(Number);
+    document.getElementById('closeBannerSub').textContent=`เปิดรับอีกครั้ง ${String(oh).padStart(2,'0')}:${String(om).padStart(2,'0')} น.`;
+  }
+
+  // form visibility
   document.getElementById('warnClosed').style.display=open?'none':'flex';
-  document.getElementById('submitBtn').disabled=!open;
+  document.getElementById('alreadyDone').style.display=done?'block':'none';
+  document.getElementById('submitForm').style.display=(done)?'none':'block';
+
+  // name grid
+  renderNameGrid();
+  updateSubmitBtn();
+
+  // admin settings
   document.getElementById('timeSettings').style.display=document.getElementById('enableTime').checked?'block':'none';
   document.getElementById('resetSettings').style.display=document.getElementById('enableReset').checked?'block':'none';
   if(document.getElementById('enableReset').checked){
     const[rh,rm]=document.getElementById('resetTime').value.split(':').map(Number);
     document.getElementById('resetInfo').textContent=`⏱ รีเซ็ตครั้งถัดไป: ${String(rh).padStart(2,'0')}:${String(rm).padStart(2,'0')} น. (${fmtCD(minsUntilReset())})`;
   }
+  renderAdminNameMgmt();
+
+  // totals
   const total=people.reduce((s,p)=>s+(parseFloat(p.pts)||0),0);
   const cups=total/6,full=Math.floor(cups),half=(cups-full)>=0.01;
   document.getElementById('totalPts').innerHTML=total+' <span class="mu">แต้ม</span>';
   document.getElementById('totalCups').innerHTML=cups.toFixed(2)+' <span class="mu">ถ้วย</span>';
   document.getElementById('countLabel').textContent=people.length;
   document.getElementById('lastReset').textContent=lastResetStr?`รีเซ็ต ${lastResetStr} น.`:'';
+
   const ri=document.getElementById('riceIcons');
   if(!total){ri.innerHTML='<span style="font-size:13px;color:var(--text3)">ยังไม่มีข้อมูล</span>';}
   else{let h='';for(let i=0;i<full;i++)h+='<span class="ri">🍚</span>';if(half)h+='<span class="ri-half">🍚</span>';ri.innerHTML=h;}
 
-  // USER — ไม่มีปุ่มลบ
+  // user person list
   const pl=document.getElementById('personList');
   if(!people.length){pl.innerHTML='<div class="empty-state"><span class="ei">👤</span>ยังไม่มีผู้ลงทะเบียน</div>';}
   else{pl.innerHTML=people.map(p=>`
@@ -392,10 +664,10 @@ function renderAll(){
       <div class="avatar" style="background:${p.bg};color:${p.tc}">${initials(p.name)}</div>
       <span class="p-name">${p.name}</span>
       <span class="p-time">🕐 ${p.ts}</span>
-      <span class="p-pts">${p.pts} แต้ม</span>
+      <span class="p-pts">${p.pts} (${p.label||''})</span>
     </div>`).join('');}
 
-  // ADMIN — มีปุ่มลบ
+  // admin person list
   const apl=document.getElementById('adminPersonList');
   if(!people.length){apl.innerHTML='<div class="empty-state"><span class="ei">👤</span>ยังไม่มีผู้ลงทะเบียน</div>';}
   else{apl.innerHTML=people.map(p=>`
@@ -403,7 +675,7 @@ function renderAll(){
       <div class="avatar" style="background:${p.bg};color:${p.tc}">${initials(p.name)}</div>
       <span class="p-name">${p.name}</span>
       <span class="p-time">🕐 ${p.ts}</span>
-      <span class="p-pts">${p.pts} แต้ม</span>
+      <span class="p-pts">${p.pts} (${p.label||''})</span>
       <button class="del-btn" onclick="removePerson(${p.id})">✕</button>
     </div>`).join('');}
 }
@@ -447,13 +719,16 @@ document.getElementById('logoTap').addEventListener('touchend',()=>{clearTimeout
 document.getElementById('logoTap').addEventListener('mousedown',()=>{pt=setTimeout(openPin,800);});
 document.getElementById('logoTap').addEventListener('mouseup',()=>{clearTimeout(pt);});
 
-// ===== KEYBOARD =====
-document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('ptsInput').focus();});
-document.getElementById('ptsInput').addEventListener('keydown',e=>{if(e.key==='Enter')addPerson();});
+// ===== NOTIFICATION PERMISSION =====
+function requestNotifPerm(){
+  if('Notification' in window&&Notification.permission==='default'){
+    Notification.requestPermission();
+  }
+}
 
 // ===== INIT =====
-loadLocal();renderAll();startStream();
-setInterval(()=>{checkAutoReset();renderAll();},5000);
+loadLocal();renderAll();startStream();requestNotifPerm();
+setInterval(()=>{checkAutoReset();checkCloseNotify();renderAll();},5000);
 </script>
 <script>if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');</script>
 </body>
