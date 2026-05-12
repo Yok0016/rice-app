@@ -477,13 +477,30 @@ function minsUntilReset(){
 }
 function fmtCD(m){return m>=60?`อีก ${Math.floor(m/60)} ชม. ${m%60} น.`:`อีก ${m} น.`}
 
+let warned5min=false;
 function checkCloseNotify(){
   const open=isOpen();
+
+  // แจ้งเตือนก่อนปิด 5 นาที
+  if(open&&document.getElementById('enableTime').checked){
+    const now=new Date(),hm=now.getHours()*60+now.getMinutes();
+    const[ch,cm]=document.getElementById('timeClose').value.split(':').map(Number);
+    const diff=(ch*60+cm)-hm;
+    if(diff===5&&!warned5min){
+      warned5min=true;
+      showToast('⚠️ ปิดรับลงชื่ออีก 5 นาที!',6000);
+      if('Notification' in window&&Notification.permission==='granted'){
+        new Notification('สวัสดิการข้าว ⚠️',{body:'ปิดรับลงชื่ออีก 5 นาที! รีบลงชื่อด่วน',icon:'icons/icon-192.png'});
+      }
+    }
+    if(diff>5)warned5min=false;
+  }
+
+  // แจ้งเตือนตอนปิดรับทันที
   if(wasOpen===true&&open===false){
-    // just closed
-    showToast('🔒 ปิดรับลงชื่อแล้ว',4000);
+    showToast('🔒 ปิดรับลงชื่อแล้ว',6000);
     if('Notification' in window&&Notification.permission==='granted'){
-      new Notification('สวัสดิการข้าว',{body:'ปิดรับลงชื่อแล้ว',icon:'icons/icon-192.png'});
+      new Notification('สวัสดิการข้าว 🔒',{body:'หมดเวลาลงชื่อแล้ว',icon:'icons/icon-192.png'});
     }
   }
   wasOpen=open;
@@ -491,9 +508,16 @@ function checkCloseNotify(){
 
 function checkAutoReset(){
   if(!document.getElementById('enableReset').checked)return;
-  const now=new Date(),cur=now.getHours()*60+now.getMinutes();
+  const now=new Date();
+  const cur=now.getHours()*60+now.getMinutes();
   const[rh,rm]=document.getElementById('resetTime').value.split(':').map(Number);
-  if(cur===rh*60+rm&&lastCheckedMin!==cur){lastCheckedMin=cur;doReset();}
+  const resetMin=rh*60+rm;
+  const todayStr=now.toDateString();
+  const lastResetDate=localStorage.getItem('lastResetDate')||'';
+  if(cur>=resetMin&&lastResetDate!==todayStr){
+    localStorage.setItem('lastResetDate',todayStr);
+    doReset();
+  }
 }
 async function doReset(){
   people=[];selectedName=null;selectedHunger=null;
@@ -726,8 +750,16 @@ function requestNotifPerm(){
   }
 }
 
+// ===== VISIBILITY CHANGE (กลับมาเปิดแอพ → ตรวจทันที) =====
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible'){
+    checkAutoReset();checkCloseNotify();renderAll();
+  }
+});
+
 // ===== INIT =====
 loadLocal();renderAll();startStream();requestNotifPerm();
+checkAutoReset();
 setInterval(()=>{checkAutoReset();checkCloseNotify();renderAll();},5000);
 </script>
 <script>if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');</script>
