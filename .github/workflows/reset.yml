@@ -2,13 +2,13 @@ name: Auto Reset Rice List
 
 on:
   schedule:
-    - cron: '0 7 * * *'  # 14:00 เวลาไทย
+    - cron: '0 7 * * *'  # 14:00 เวลาไทย (UTC+7)
 
 jobs:
   reset:
     runs-on: ubuntu-latest
     steps:
-      - name: Reset and Save History to Firebase
+      - name: Save History and Reset
         run: |
           python3 << 'EOF'
           import urllib.request
@@ -16,29 +16,28 @@ jobs:
           from datetime import datetime, timezone, timedelta
 
           FB = "https://test001-278c6-default-rtdb.asia-southeast1.firebasedatabase.app"
+          tz = timezone(timedelta(hours=7))
+          now = datetime.now(tz)
 
-          # ดึงข้อมูล people ปัจจุบัน
-          req = urllib.request.urlopen(f"{FB}/rice/people.json")
-          people_raw = json.loads(req.read())
+          # 1. ดึงข้อมูล people ปัจจุบัน
+          try:
+              req = urllib.request.urlopen(f"{FB}/rice/people.json")
+              people_raw = json.loads(req.read())
+              people = list(people_raw.values()) if people_raw else []
+          except:
+              people = []
 
-          # แปลงเป็น list
-          people = list(people_raw.values()) if people_raw else []
-
-          # สร้าง snapshot สถิติ
+          # 2. บันทึกสถิติก่อนรีเซ็ต
           if people:
-              tz = timezone(timedelta(hours=7))
-              now = datetime.now(tz)
-              date_str = now.strftime("%d/%m/%Y")
               total = sum(float(p.get("pts", 1)) for p in people)
               cups = round(total / 6, 2)
               snapshot = {
-                  "date": date_str,
+                  "date": now.strftime("%d/%m/%Y"),
                   "time": now.strftime("%H:%M"),
                   "people": people,
                   "total": total,
                   "cups": cups
               }
-              # บันทึกลง Firebase history
               key = str(int(now.timestamp() * 1000))
               data = json.dumps({key: snapshot}).encode()
               req2 = urllib.request.Request(
@@ -48,13 +47,9 @@ jobs:
                   method="PATCH"
               )
               urllib.request.urlopen(req2)
-              print(f"Saved history: {date_str} | {len(people)} คน | {cups} ถ้วย")
-          else:
-              print("No people to save, skipping history")
+              print(f"Saved: {now.strftime('%d/%m/%Y')} | {len(people)} คน | {cups} ถ้วย")
 
-          # รีเซ็ต people
-          tz = timezone(timedelta(hours=7))
-          now = datetime.now(tz)
+          # 3. รีเซ็ตเฉพาะ people — ไม่แตะ memberNames และ settings
           reset_data = json.dumps({
               "people": None,
               "lastReset": now.strftime("%H:%M")
