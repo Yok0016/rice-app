@@ -480,7 +480,12 @@ function handleFb(e,type){
     const d=JSON.parse(e.data),data=d.data;
     if(!data&&type==='put'){people=[];renderAll();setSyncOk();return;}
     if(!data)return;
-    if(data.people!==undefined)people=Object.values(data.people||{});
+    if(data.people!==undefined){
+      const newPeople=Object.values(data.people||{});
+      // ถ้า people ถูกล้างจาก server → clear submitted flag ด้วย
+      if(newPeople.length===0&&people.length>0) clearSubmitted();
+      people=newPeople;
+    }
     if(data.memberNames!==undefined)memberNames=data.memberNames||[];
     if(data.lastReset!==undefined)lastResetStr=data.lastReset;
     if(data.settings){
@@ -588,7 +593,10 @@ function checkCloseNotify(){
   wasOpen=open;
 }
 
-async function doReset(){
+// checkAutoReset removed — GitHub Actions handles reset
+}
+async function doReset(fromAdmin=false){
+  if(!fromAdmin){console.warn("doReset blocked - use admin panel");return;}
   // บันทึกประวัติก่อนรีเซ็ต
   if(people.length>0){
     const now=new Date();
@@ -892,11 +900,9 @@ function requestNotifPerm(){
   }
 }
 
-// ===== VISIBILITY CHANGE (กลับมาเปิดแอพ → ตรวจทันที) =====
+// ===== VISIBILITY CHANGE =====
 document.addEventListener('visibilitychange',()=>{
-  if(document.visibilityState==='visible'){
-    checkAutoReset();checkCloseNotify();renderAll();
-  }
+  if(document.visibilityState==='visible'){checkCloseNotify();renderAll();}
 });
 
 // ===== TABS =====
@@ -1038,8 +1044,7 @@ function renderChart(data){
 // Update doReset to also save history to localStorage properly
 // ===== INIT =====
 loadLocal();renderAll();startStream();requestNotifPerm();
-checkAutoReset();
-setInterval(()=>{checkAutoReset();checkCloseNotify();renderAll();},5000);
+setInterval(()=>{checkCloseNotify();renderAll();},5000);
 </script>
 <script>if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');</script>
 </body>
