@@ -587,20 +587,6 @@ function checkCloseNotify(){
   }
   wasOpen=open;
 }
-
-function checkAutoReset(){
-  if(!document.getElementById('enableReset').checked)return;
-  const now=new Date();
-  const cur=now.getHours()*60+now.getMinutes();
-  const[rh,rm]=document.getElementById('resetTime').value.split(':').map(Number);
-  const resetMin=rh*60+rm;
-  const todayStr=now.toDateString();
-  const lastResetDate=localStorage.getItem('lastResetDate')||'';
-  if(cur>=resetMin&&lastResetDate!==todayStr){
-    localStorage.setItem('lastResetDate',todayStr);
-    doReset();
-  }
-}
 async function doReset(){
   // บันทึกประวัติก่อนรีเซ็ต
   if(people.length>0){
