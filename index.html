@@ -589,21 +589,18 @@ function checkCloseNotify(){
 }
 
 function checkAutoReset(){
-  const settings = JSON.parse(localStorage.getItem('rs2') || localStorage.getItem('rs') || '{}');
-  if(!settings.enableReset) return;
-
-  const resetTime = settings.resetTime || '14:00';
-  const [rh, rm] = resetTime.split(':').map(Number);
-  const now = new Date();
-  const cur = now.getHours() * 60 + now.getMinutes();
-  const todayStr = now.toDateString();
-  const lastRD = localStorage.getItem('lastResetDate') || '';
-
-  if(cur >= rh*60+rm && lastRD !== todayStr){
-    localStorage.setItem('lastResetDate', todayStr);
+  if(!document.getElementById('enableReset').checked)return;
+  const now=new Date();
+  const cur=now.getHours()*60+now.getMinutes();
+  const[rh,rm]=document.getElementById('resetTime').value.split(':').map(Number);
+  const resetMin=rh*60+rm;
+  const todayStr=now.toDateString();
+  const lastResetDate=localStorage.getItem('lastResetDate')||'';
+  if(cur>=resetMin&&lastResetDate!==todayStr){
+    localStorage.setItem('lastResetDate',todayStr);
     doReset();
   }
-}
+} 
 async function doReset(){
   // บันทึกประวัติก่อนรีเซ็ต
   if(people.length>0){
